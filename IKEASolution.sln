@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKEA.PL", "IKEA.PL\IKEA.PL.csproj", "{37F3DFA8-3FF5-45FB-AF7D-C50EC3AF0F43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKEA.BLL", "IKEA.BLL\IKEA.BLL.csproj", "{AAA90238-FD68-4CF7-9DB8-33F83D10AFEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKEA.DAL", "IKEA.DAL\IKEA.DAL.csproj", "{6139CCF4-EAB0-488F-BD7E-D6AD227E20DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37F3DFA8-3FF5-45FB-AF7D-C50EC3AF0F43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37F3DFA8-3FF5-45FB-AF7D-C50EC3AF0F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37F3DFA8-3FF5-45FB-AF7D-C50EC3AF0F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37F3DFA8-3FF5-45FB-AF7D-C50EC3AF0F43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA90238-FD68-4CF7-9DB8-33F83D10AFEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA90238-FD68-4CF7-9DB8-33F83D10AFEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA90238-FD68-4CF7-9DB8-33F83D10AFEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA90238-FD68-4CF7-9DB8-33F83D10AFEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6139CCF4-EAB0-488F-BD7E-D6AD227E20DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6139CCF4-EAB0-488F-BD7E-D6AD227E20DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6139CCF4-EAB0-488F-BD7E-D6AD227E20DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6139CCF4-EAB0-488F-BD7E-D6AD227E20DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4037AF47-6107-4507-AC20-92854280AC6B}
+	EndGlobalSection
+EndGlobal
