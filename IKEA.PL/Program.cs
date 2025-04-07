@@ -1,3 +1,6 @@
+using IKEA.DAL.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace IKEA.PL
 {
     public class Program
@@ -9,7 +12,12 @@ namespace IKEA.PL
 
             #region Add services to the container.
 
-            builder.Services.AddControllersWithViews(); 
+            builder.Services.AddControllersWithViews();
+            //builder.Services.AddScoped<ApplicationDBContext>(); // 2.Register service in Dependancy Injection container
+            builder.Services.AddDbContext<ApplicationDBContext>( options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             #endregion
 
