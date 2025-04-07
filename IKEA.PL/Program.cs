@@ -1,4 +1,5 @@
 using IKEA.DAL.Data.Contexts;
+using IKEA.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace IKEA.PL
@@ -19,6 +20,7 @@ namespace IKEA.PL
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
             #endregion
 
             var app = builder.Build();
