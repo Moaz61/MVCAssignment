@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,11 @@ namespace IKEA.BLL.Factories
             return new DepartmentDetailsDto()
             {
                 Id = department.Id,
+                Code=department.Code,
+                Description=department.Description,
+                CreatedBy=department.CreatedBy,
                 Name = department.Name,
+                LastModifiedBy =  department.LastModifiedBy,
                 CreatedOn = DateOnly.FromDateTime(department.CreatedOn)
             };
         }
