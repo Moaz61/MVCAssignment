@@ -33,6 +33,7 @@ namespace IKEA.BLL.Factories
                 CreatedBy=department.CreatedBy,
                 Name = department.Name,
                 LastModifiedBy =  department.LastModifiedBy,
+                LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn),
                 CreatedOn = DateOnly.FromDateTime(department.CreatedOn)
             };
         }
