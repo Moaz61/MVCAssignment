@@ -123,5 +123,47 @@ namespace IKEA.PL.Controllers
             return View(viewModel);
         }
         #endregion
+
+        #region Delete Department
+        //[HttpGet]
+        //public IActionResult Delete (int? id)
+        //{
+        //    if(!id.HasValue) return BadRequest();
+        //    var department = _departmentService.GetDepartmentById(id.Value);
+        //    if (department is null) return NotFound();
+        //    return View(department);
+        //}
+        [HttpPost]
+        public IActionResult Delete (int id)
+        {
+            if (id == 0) return BadRequest();
+            try
+            {
+                bool Deleted = _departmentService.DeleteDepartment(id);
+                if (Deleted)
+                    return RedirectToAction(nameof(Index));
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Department Is Not Deleted");
+                    return RedirectToAction(nameof(Delete) , new { id });
+                }
+            }
+            catch (Exception ex)
+            {
+                if (_environment.IsDevelopment())
+                {
+                    // 1. Development => Log Error In Console And Return Same View With Error Message
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // 2. Deployment => Log Error In File | Table In Database And Return Error View
+                    _logger.LogError(ex.Message);
+                    return View("ErrorView" , ex);
+                }
+            }
+        }
+        #endregion
     }
 }
