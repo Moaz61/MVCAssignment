@@ -1,4 +1,6 @@
 ﻿
+using IKEA.DAL.Models.DepartmentModel;
+
 namespace IKEA.DAL.Repositories
 {
     public interface IDepartmentRepo

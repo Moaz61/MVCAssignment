@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IKEA.BLL.DataTransferObjects;
-using IKEA.DAL.Models;
+using IKEA.DAL.Models.DepartmentModel;
 
 namespace IKEA.BLL.Factories
 {
@@ -33,7 +33,7 @@ namespace IKEA.BLL.Factories
                 CreatedBy=department.CreatedBy,
                 Name = department.Name,
                 LastModifiedBy =  department.LastModifiedBy,
-                LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn),
+                LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn.Value),
                 CreatedOn = DateOnly.FromDateTime(department.CreatedOn)
             };
         }

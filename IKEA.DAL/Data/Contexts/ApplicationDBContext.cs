@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using IKEA.DAL.Models.DepartmentModel;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace IKEA.DAL.Data.Contexts
@@ -14,5 +15,6 @@ namespace IKEA.DAL.Data.Contexts
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }

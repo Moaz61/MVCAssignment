@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IKEA.DAL.Data.Contexts;
+using IKEA.DAL.Models.DepartmentModel;
 
 namespace IKEA.DAL.Repositories
 {
