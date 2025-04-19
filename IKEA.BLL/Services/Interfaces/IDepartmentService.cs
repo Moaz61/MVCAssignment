@@ -1,6 +1,6 @@
-﻿using IKEA.BLL.DataTransferObjects;
+﻿using IKEA.BLL.DataTransferObjects.DepartmentDtos;
 
-namespace IKEA.BLL.Services
+namespace IKEA.BLL.Services.Interfaces
 {
     public interface IDepartmentService
     {
