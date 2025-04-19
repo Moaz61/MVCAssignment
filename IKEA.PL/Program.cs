@@ -1,6 +1,7 @@
 using IKEA.BLL.Services;
 using IKEA.DAL.Data.Contexts;
-using IKEA.DAL.Repositories;
+using IKEA.DAL.Repositories.Classes;
+using IKEA.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace IKEA.PL
