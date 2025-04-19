@@ -1,5 +1,6 @@
 ﻿using IKEA.BLL.DataTransferObjects;
-using IKEA.BLL.Services;
+using IKEA.BLL.DataTransferObjects.DepartmentDtos;
+using IKEA.BLL.Services.Interfaces;
 using IKEA.PL.ViewModels.DepartmentViewModel;
 using Microsoft.AspNetCore.Mvc;
 

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IKEA.BLL.DataTransferObjects;
+using IKEA.BLL.DataTransferObjects.DepartmentDtos;
 using IKEA.BLL.Factories;
+using IKEA.BLL.Services.Interfaces;
 using IKEA.DAL.Repositories.Interfaces;
 
-namespace IKEA.BLL.Services
+namespace IKEA.BLL.Services.Classes
 {
     public class DepartmentService(IDepartmentRepo _departmentRepo) : IDepartmentService
     {
