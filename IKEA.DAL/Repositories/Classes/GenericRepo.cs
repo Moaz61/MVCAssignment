@@ -17,9 +17,9 @@ namespace IKEA.DAL.Repositories.Classes
         public IEnumerable<TEntity> GetAll(bool WithTracker = false)
         {
             if (WithTracker)
-                return _dbContext.Set<TEntity>().ToList();
+                return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true).ToList();
             else
-                return _dbContext.Set<TEntity>().AsNoTracking().ToList();
+                return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true).AsNoTracking().ToList();
         }
 
         //Get By Id

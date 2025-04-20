@@ -1,5 +1,6 @@
 ﻿using IKEA.BLL.DataTransferObjects.DepartmentDtos;
 using IKEA.BLL.DataTransferObjects.EmployeeDtos;
+using IKEA.BLL.Services.Classes;
 using IKEA.BLL.Services.Interfaces;
 using IKEA.DAL.Models.EmployeeModel;
 using IKEA.DAL.Models.Shared.Enums;
@@ -102,6 +103,38 @@ namespace IKEA.PL.Controllers
                 {
                     ModelState.AddModelError(string.Empty , ex.Message);
                     return View(employeeDto);
+                }
+                else
+                {
+                    logger.LogError(ex.Message);
+                    return View("ErrorView", ex);
+                }
+            }
+        }
+        #endregion
+
+        #region Delete Emplyee
+        [HttpPost]
+        public IActionResult Delete (int id)
+        {
+            if (id == 0) return BadRequest();
+            try
+            {
+                bool Deleted = _employeeService.DeleteEmployee(id);
+                if (Deleted)
+                    return RedirectToAction(nameof(Index));
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Employee Is Not Deleted");
+                    return RedirectToAction(nameof(Delete), new { id });
+                }
+            }
+            catch (Exception ex)
+            {
+                if (environment.IsDevelopment())
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return RedirectToAction(nameof(Index));
                 }
                 else
                 {
