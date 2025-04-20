@@ -27,6 +27,7 @@ namespace IKEA.PL
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             //builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             #endregion
