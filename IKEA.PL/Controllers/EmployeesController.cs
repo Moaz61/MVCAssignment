@@ -41,5 +41,17 @@ namespace IKEA.PL.Controllers
             return View(employeeDto);
         }
         #endregion
+
+        #region Details Of Employee
+        [HttpGet]
+        public IActionResult Details (int? id)
+        {
+            if (!id.HasValue) return BadRequest();
+            var employee = _employeeService.GetEmployeeById(id.Value);
+            return employee is null ? NotFound() : View(employee);
+        }
+        #endregion
+
+
     }
 }
