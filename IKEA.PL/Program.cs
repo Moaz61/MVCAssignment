@@ -20,7 +20,7 @@ namespace IKEA.PL
 
             builder.Services.AddControllersWithViews( options =>
             {
-                options.Filters.Add(new ValidateAntiForgeryTokenAttribute());
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
             //builder.Services.AddScoped<ApplicationDBContext>(); // 2.Register service in Dependancy Injection container
