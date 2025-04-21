@@ -22,12 +22,24 @@ namespace IKEA.PL.Controllers
         public IActionResult Create() => View();
         
         [HttpPost]
-        public IActionResult Create(CreatedDepartmentDto departmentDto)
+        //[ValidateAntiForgeryToken] // Action Filter
+        /*3mlnaha fy program 3nd AddControllersWithView 
+          3shan tghyr kol 7aga 3ndy m7taga Validation 
+          bdl m 23mlha b nfsy f kol files
+        */
+        public IActionResult Create(DepartmentViewModel departmentViewModel)
         {
             if(ModelState.IsValid) //Server Side Validation
             { 
                 try
                 {
+                    var departmentDto = new CreatedDepartmentDto()
+                    {
+                        Name = departmentViewModel.Name,
+                        Code = departmentViewModel.Code,
+                        Description = departmentViewModel.Description,
+                        DateOfCreation = departmentViewModel.DateOfCreation,
+                    };
                     int Result = _departmentService.AddDepartment(departmentDto);
                     if (Result > 0)
                         return RedirectToAction(nameof(Index));
@@ -50,7 +62,7 @@ namespace IKEA.PL.Controllers
                     }
                 }
             }
-            return View(departmentDto);  
+            return View(departmentViewModel);  
         }
 
         #endregion
@@ -73,7 +85,7 @@ namespace IKEA.PL.Controllers
             if(!id.HasValue) return BadRequest();
             var department = _departmentService.GetDepartmentById(id.Value);
             if (department is null) return NotFound();
-            var departmentViewModel = new DepartmentEditViewModel()
+            var departmentViewModel = new DepartmentViewModel()
             {
                 Code = department.Code,
                 Name = department.Name,
@@ -84,7 +96,7 @@ namespace IKEA.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id , DepartmentEditViewModel viewModel)
+        public IActionResult Edit([FromRoute]int id , DepartmentViewModel viewModel)
         {
             if (ModelState.IsValid)
             {

@@ -1,8 +1,10 @@
+using IKEA.BLL.Profiles;
 using IKEA.BLL.Services.Classes;
 using IKEA.BLL.Services.Interfaces;
 using IKEA.DAL.Data.Contexts;
 using IKEA.DAL.Repositories.Classes;
 using IKEA.DAL.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace IKEA.PL
@@ -16,7 +18,11 @@ namespace IKEA.PL
 
             #region Add services to the container.
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews( options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
+
             //builder.Services.AddScoped<ApplicationDBContext>(); // 2.Register service in Dependancy Injection container
             builder.Services.AddDbContext<ApplicationDBContext>( options =>
             {
@@ -26,6 +32,9 @@ namespace IKEA.PL
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            //builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             #endregion
 
             var app = builder.Build();
