@@ -22,6 +22,11 @@ namespace IKEA.PL.Controllers
         public IActionResult Create() => View();
         
         [HttpPost]
+        //[ValidateAntiForgeryToken] // Action Filter
+        /*3mlnaha fy program 3nd AddControllersWithView 
+          3shan tghyr kol 7aga 3ndy m7taga Validation 
+          bdl m 23mlha b nfsy f kol files
+        */
         public IActionResult Create(CreatedDepartmentDto departmentDto)
         {
             if(ModelState.IsValid) //Server Side Validation

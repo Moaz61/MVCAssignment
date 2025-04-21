@@ -4,6 +4,7 @@ using IKEA.BLL.Services.Interfaces;
 using IKEA.DAL.Data.Contexts;
 using IKEA.DAL.Repositories.Classes;
 using IKEA.DAL.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace IKEA.PL
@@ -17,7 +18,11 @@ namespace IKEA.PL
 
             #region Add services to the container.
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews( options =>
+            {
+                options.Filters.Add(new ValidateAntiForgeryTokenAttribute());
+            });
+
             //builder.Services.AddScoped<ApplicationDBContext>(); // 2.Register service in Dependancy Injection container
             builder.Services.AddDbContext<ApplicationDBContext>( options =>
             {
