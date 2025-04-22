@@ -13,6 +13,11 @@ namespace IKEA.PL.Controllers
         //BaseURL/Department/Index
         public IActionResult Index()
         {
+            //ViewData VS ViewBag
+
+            //ViewData["Message"] = new DepartmentDto() { Name = "TestViewData" };
+            //ViewBag.Message = new DepartmentDto() { Name = "TestViewBag" };
+
             var departments = _departmentService.GetAllDepartments();
             return View(departments);
         }
