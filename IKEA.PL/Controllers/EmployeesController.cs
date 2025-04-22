@@ -4,6 +4,7 @@ using IKEA.BLL.Services.Classes;
 using IKEA.BLL.Services.Interfaces;
 using IKEA.DAL.Models.EmployeeModel;
 using IKEA.DAL.Models.Shared.Enums;
+using IKEA.PL.ViewModels.DepartmentViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IKEA.PL.Controllers
@@ -28,10 +29,14 @@ namespace IKEA.PL.Controllers
                 try
                 {
                     int Result = _employeeService.CreateEmployee(employeeDto);
+                    string Message;
                     if (Result > 0)
-                        return RedirectToAction(nameof(Index));
+                        Message = $"Employee {employeeDto.Name} Is Created Successfully";
                     else
-                        ModelState.AddModelError(string.Empty, "Can't Create Employee");
+                        Message = $"Employee {employeeDto.Name} Is Not Created";
+
+                    TempData["Message"] = Message;
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
