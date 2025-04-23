@@ -23,5 +23,6 @@ namespace IKEA.BLL.DataTransferObjects.EmployeeDtos
         public DateTime CreatedOn { get; set; }
         public int LastModifiedBy { get; set; }
         public DateTime LastModifiedOn { get; set; }
+
     }
 }
