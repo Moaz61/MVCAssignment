@@ -10,20 +10,19 @@ namespace IKEA.DAL.Repositories.Classes
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private IDepartmentRepo _departmentRepo;
-        private IEmployeeRepo _employeeRepo;
+        private readonly Lazy<IDepartmentRepo> _departmentRepo;
+        private readonly Lazy<IEmployeeRepo> _employeeRepo;
         private readonly ApplicationDBContext _dBContext;
 
-        public UnitOfWork(IDepartmentRepo departmentRepo,
-            IEmployeeRepo employeeRepo , ApplicationDBContext dBContext)
+        public UnitOfWork(ApplicationDBContext dBContext)
         {
-            _departmentRepo = departmentRepo;
-            _employeeRepo = employeeRepo;
             _dBContext = dBContext;
+            _departmentRepo = new Lazy<IDepartmentRepo>(() => new DepartmentRepo(dBContext));
+            _employeeRepo = new Lazy<IEmployeeRepo>(() => new EmployeeRepo(dBContext));
         }
-        public IEmployeeRepo EmployeeRepo => _employeeRepo;
+        public IEmployeeRepo EmployeeRepo => _employeeRepo.Value;
 
-        public IDepartmentRepo DepartmentRepo => _departmentRepo;
+        public IDepartmentRepo DepartmentRepo => _departmentRepo.Value;
 
         public int SaveChanges() => _dBContext.SaveChanges();
     }
