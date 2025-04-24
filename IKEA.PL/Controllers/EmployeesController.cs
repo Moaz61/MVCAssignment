@@ -4,34 +4,59 @@ using IKEA.BLL.Services.Classes;
 using IKEA.BLL.Services.Interfaces;
 using IKEA.DAL.Models.EmployeeModel;
 using IKEA.DAL.Models.Shared.Enums;
+using IKEA.PL.ViewModels;
+using IKEA.PL.ViewModels.DepartmentViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IKEA.PL.Controllers
 {
-    public class EmployeesController(IEmployeeService _employeeService , IWebHostEnvironment environment , ILogger<EmployeesController> logger) : Controller
+    public class EmployeesController(IEmployeeService _employeeService ,
+        IWebHostEnvironment environment ,
+        ILogger<EmployeesController> logger) : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string? EmployeeSearchName)
         {
-            var Employees = _employeeService.GetAllEmployees();
+            var Employees = _employeeService.GetAllEmployees(EmployeeSearchName);
             return View(Employees);
         }
 
         #region Create Employee
         [HttpGet]
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public IActionResult Create(CreatedEmployeeDto employeeDto)
+        public IActionResult Create(EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var employeeDto = new CreatedEmployeeDto()
+                    {
+                        Name = employeeViewModel.Name,
+                        Age = employeeViewModel.Age,
+                        Address = employeeViewModel.Address,
+                        Salary = employeeViewModel.Salary,
+                        IsActive = employeeViewModel.IsActive,
+                        Email = employeeViewModel.Email,
+                        Gender = employeeViewModel.Gender,
+                        EmployeeType = employeeViewModel.EmployeeType,
+                        PhoneNumber = employeeViewModel.PhoneNumber,
+                        HiringDate = employeeViewModel.HiringDate,
+                        DepartmentId = employeeViewModel.DepartmentId,
+                    };
                     int Result = _employeeService.CreateEmployee(employeeDto);
+                    string Message;
                     if (Result > 0)
-                        return RedirectToAction(nameof(Index));
+                        Message = $"Employee {employeeDto.Name} Is Created Successfully";
                     else
-                        ModelState.AddModelError(string.Empty, "Can't Create Employee");
+                        Message = $"Employee {employeeDto.Name} Is Not Created";
+
+                    TempData["Message"] = Message;
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
@@ -41,7 +66,7 @@ namespace IKEA.PL.Controllers
                         logger.LogError(ex.Message);
                 }
             }
-            return View(employeeDto);
+            return View(employeeViewModel);
         }
         #endregion
 
@@ -63,9 +88,8 @@ namespace IKEA.PL.Controllers
             var employee = _employeeService.GetEmployeeById(id.Value);
             if (employee is null) return NotFound();
 
-            var employeeDto = new UpdatedEmployeeDto()
+            var employeeViewModel = new EmployeeViewModel()
             {
-                Id = employee.Id,
                 Name = employee.Name,
                 Salary = employee.Salary,
                 Address = employee.Address,
@@ -75,19 +99,35 @@ namespace IKEA.PL.Controllers
                 IsActive = employee.IsActive,
                 HiringDate = employee.HiringDate,
                 Gender = Enum.Parse<Gender>(employee.Gender),
-                EmployeeType = Enum.Parse<EmployeeType>(employee.EmployeeType)
+                EmployeeType = Enum.Parse<EmployeeType>(employee.EmployeeType),
+                DepartmentId = employee.DepartmentId,
             };
-            return View(employeeDto);
+            return View(employeeViewModel);
         }
 
         [HttpPost]
-        public IActionResult Edit ([FromRoute]int? id , UpdatedEmployeeDto employeeDto)
+        public IActionResult Edit ([FromRoute]int? id , EmployeeViewModel employeeViewModel)
         {
-            if (!id.HasValue || id != employeeDto.Id) return BadRequest();
-            if (!ModelState.IsValid) return View(employeeDto);
+            if (!id.HasValue) return BadRequest();
+            if (!ModelState.IsValid) return View(employeeViewModel);
 
             try
             {
+                var employeeDto = new UpdatedEmployeeDto()
+                {
+                    Id = id.Value,
+                    Name = employeeViewModel.Name,
+                    Age = employeeViewModel.Age,
+                    Address = employeeViewModel.Address,
+                    Email = employeeViewModel.Email,
+                    EmployeeType = employeeViewModel.EmployeeType,
+                    Gender = employeeViewModel.Gender,
+                    HiringDate= employeeViewModel.HiringDate,
+                    IsActive= employeeViewModel.IsActive,
+                    Salary = employeeViewModel.Salary,
+                    PhoneNumber= employeeViewModel.PhoneNumber,
+                    DepartmentId = employeeViewModel.DepartmentId,
+                };
                 var result = _employeeService.UpdateEmployee(employeeDto);
                 if (result > 0)
                     return RedirectToAction(nameof(Index));
@@ -102,7 +142,7 @@ namespace IKEA.PL.Controllers
                 if (environment.IsDevelopment())
                 {
                     ModelState.AddModelError(string.Empty , ex.Message);
-                    return View(employeeDto);
+                    return View(employeeViewModel);
                 }
                 else
                 {

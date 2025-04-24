@@ -10,12 +10,12 @@ using IKEA.DAL.Repositories.Interfaces;
 
 namespace IKEA.BLL.Services.Classes
 {
-    public class DepartmentService(IDepartmentRepo _departmentRepo) : IDepartmentService
+    public class DepartmentService(IUnitOfWork _unitOfWork) : IDepartmentService
     {
         // Get All Departments
         public IEnumerable<DepartmentDto> GetAllDepartments()
         {
-            var departments = _departmentRepo.GetAll();
+            var departments = _unitOfWork.DepartmentRepo.GetAll();
 
             #region Mapping Method
             ///Mapping
@@ -37,7 +37,7 @@ namespace IKEA.BLL.Services.Classes
         //Get Department By Id
         public DepartmentDetailsDto? GetDepartmentById(int id)
         {
-            var department = _departmentRepo.GetById(id);
+            var department = _unitOfWork.DepartmentRepo.GetById(id);
 
             #region Manual Mapping
             //return department is null ? null : new DepartmentDetailsDto
@@ -56,23 +56,26 @@ namespace IKEA.BLL.Services.Classes
         public int AddDepartment(CreatedDepartmentDto departmentDto)
         {
             var department = departmentDto.ToEntity();
-            return _departmentRepo.Add(department);
+            _unitOfWork.DepartmentRepo.Add(department);
+            return _unitOfWork.SaveChanges();
         }
 
         //Update Department
         public int UpdateDepartment(UpdatedDepartmentDto departmentDto)
         {
-            return _departmentRepo.Update(departmentDto.ToEntity());
+            _unitOfWork.DepartmentRepo.Update(departmentDto.ToEntity());
+            return _unitOfWork.SaveChanges();
         }
 
         //Delete Department
         public bool DeleteDepartment(int id)
         {
-            var Department = _departmentRepo.GetById(id);
+            var Department = _unitOfWork.DepartmentRepo.GetById(id);
             if (Department is null) return false;
             else
             {
-                int Result = _departmentRepo.Remove(Department);
+                _unitOfWork.DepartmentRepo.Remove(Department);
+                int Result = _unitOfWork.SaveChanges();
                 return Result > 0 ? true : false;
             }
         }

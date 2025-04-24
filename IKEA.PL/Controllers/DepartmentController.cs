@@ -13,6 +13,11 @@ namespace IKEA.PL.Controllers
         //BaseURL/Department/Index
         public IActionResult Index()
         {
+            //ViewData VS ViewBag
+
+            //ViewData["Message"] = new DepartmentDto() { Name = "TestViewData" };
+            //ViewBag.Message = new DepartmentDto() { Name = "TestViewBag" };
+
             var departments = _departmentService.GetAllDepartments();
             return View(departments);
         }
@@ -41,12 +46,14 @@ namespace IKEA.PL.Controllers
                         DateOfCreation = departmentViewModel.DateOfCreation,
                     };
                     int Result = _departmentService.AddDepartment(departmentDto);
+                    string Message;
                     if (Result > 0)
-                        return RedirectToAction(nameof(Index));
+                        Message = $"Department {departmentViewModel.Name} Is Created Successfully";
                     else
-                    {
-                        ModelState.AddModelError(string.Empty, "Department Can't Be Created");
-                    }
+                        Message = $"Department {departmentViewModel.Name} Is Not Created";
+
+                    TempData["Message"] = Message ;
+                    return RedirectToAction(nameof(Index));
                 }
                 catch(Exception ex)
                 {
