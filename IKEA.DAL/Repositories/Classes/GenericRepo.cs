@@ -34,24 +34,21 @@ namespace IKEA.DAL.Repositories.Classes
         public TEntity? GetById(int id) => _dbContext.Set<TEntity>().Find(id);
 
         //Insert
-        public int Add(TEntity entity)
+        public void Add(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
-            return _dbContext.SaveChanges();
         }
 
         //Update
-        public int Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             _dbContext.Set<TEntity>().Update(entity); //Update Locally
-            return _dbContext.SaveChanges();
         }
 
         //Delete
-        public int Remove(TEntity entity)
+        public void Remove(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity);
-            return _dbContext.SaveChanges();
         }
     }
 }

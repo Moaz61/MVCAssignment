@@ -10,11 +10,11 @@ namespace IKEA.DAL.Repositories.Interfaces
 {
     public interface IGenericRepo<TEntity> where TEntity : BaseEntity
     {
-        int Add(TEntity entity);
+        void Add(TEntity entity);
         IEnumerable<TEntity> GetAll(bool WithTracker = false);
         IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
         TEntity? GetById(int id);
-        int Remove(TEntity entity);
-        int Update(TEntity entity);
+        void Remove(TEntity entity);
+        void Update(TEntity entity);
     }
 }
