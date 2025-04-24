@@ -14,13 +14,17 @@ namespace IKEA.BLL.Services.Classes
 {
     public class EmployeeService(IEmployeeRepo _employeeRepo , IMapper _mapper) : IEmployeeService
     {
-        public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
+        public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
-            var Employees = _employeeRepo.GetAll(WithTracking);
-            //Src = Employee
-            //Dest = EmployeeDto
-            var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrWhiteSpace(EmployeeSearchName))
+                employees = _employeeRepo.GetAll();
+            else
+                employees = _employeeRepo.GetAll(E => E.Name.ToLower().Contains(EmployeeSearchName.ToLower()));
+ 
+            var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             return employeesDto;
+
         }
 
         public EmployeeDetailsDto? GetEmployeeById(int id)

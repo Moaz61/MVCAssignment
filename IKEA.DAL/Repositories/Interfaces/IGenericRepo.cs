@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using IKEA.DAL.Models.Shared;
@@ -11,6 +12,7 @@ namespace IKEA.DAL.Repositories.Interfaces
     {
         int Add(TEntity entity);
         IEnumerable<TEntity> GetAll(bool WithTracker = false);
+        IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
         TEntity? GetById(int id);
         int Remove(TEntity entity);
         int Update(TEntity entity);
