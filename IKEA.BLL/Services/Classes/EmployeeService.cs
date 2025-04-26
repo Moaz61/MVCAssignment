@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using IKEA.BLL.DataTransferObjects.EmployeeDtos;
+using IKEA.BLL.Services.AttachmentService;
 using IKEA.BLL.Services.Interfaces;
 using IKEA.DAL.Models.DepartmentModel;
 using IKEA.DAL.Models.EmployeeModel;
@@ -12,7 +13,8 @@ using IKEA.DAL.Repositories.Interfaces;
 
 namespace IKEA.BLL.Services.Classes
 {
-    public class EmployeeService(IUnitOfWork _unitOfWork , IMapper _mapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitOfWork, 
+        IMapper _mapper, IAttachmentService attachmentService) : IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {

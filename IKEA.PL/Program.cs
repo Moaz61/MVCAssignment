@@ -1,4 +1,5 @@
 using IKEA.BLL.Profiles;
+using IKEA.BLL.Services.AttachmentService;
 using IKEA.BLL.Services.Classes;
 using IKEA.BLL.Services.Interfaces;
 using IKEA.DAL.Data.Contexts;
@@ -37,6 +38,7 @@ namespace IKEA.PL
             //builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
             #endregion
 
             var app = builder.Build();
