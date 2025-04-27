@@ -47,6 +47,7 @@ namespace IKEA.PL.Controllers
                         PhoneNumber = employeeViewModel.PhoneNumber,
                         HiringDate = employeeViewModel.HiringDate,
                         DepartmentId = employeeViewModel.DepartmentId,
+                        Image = employeeViewModel.Image,
                     };
                     int Result = _employeeService.CreateEmployee(employeeDto);
                     string Message;

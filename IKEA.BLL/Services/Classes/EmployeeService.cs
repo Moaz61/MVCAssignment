@@ -14,7 +14,7 @@ using IKEA.DAL.Repositories.Interfaces;
 namespace IKEA.BLL.Services.Classes
 {
     public class EmployeeService(IUnitOfWork _unitOfWork, 
-        IMapper _mapper, IAttachmentService attachmentService) : IEmployeeService
+        IMapper _mapper, IAttachmentService _attachmentService) : IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
@@ -39,6 +39,10 @@ namespace IKEA.BLL.Services.Classes
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
             var employee = _mapper.Map<CreatedEmployeeDto, Employee>(employeeDto);
+            if (employeeDto.Image is not null)
+            {
+                employee.ImageName = _attachmentService.Upload(employeeDto.Image, "Images");
+            }
              _unitOfWork.EmployeeRepo.Add(employee); // Add Locally
             
             return _unitOfWork.SaveChanges();
