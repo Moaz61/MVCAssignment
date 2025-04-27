@@ -128,7 +128,9 @@ namespace IKEA.PL.Controllers
                     Salary = employeeViewModel.Salary,
                     PhoneNumber= employeeViewModel.PhoneNumber,
                     DepartmentId = employeeViewModel.DepartmentId,
+                    Image = employeeViewModel.Image,
                 };
+
                 var result = _employeeService.UpdateEmployee(employeeDto);
                 if (result > 0)
                     return RedirectToAction(nameof(Index));

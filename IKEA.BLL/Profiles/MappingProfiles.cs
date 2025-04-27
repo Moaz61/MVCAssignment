@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using IKEA.BLL.DataTransferObjects.EmployeeDtos;
 using IKEA.DAL.Models.EmployeeModel;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace IKEA.BLL.Profiles
 {
@@ -16,13 +17,15 @@ namespace IKEA.BLL.Profiles
             CreateMap<Employee, EmployeeDto>()
                 .ForMember(dist => dist.EmpGender, Options => Options.MapFrom(src => src.Gender))
                 .ForMember(dist => dist.EmpType, Options => Options.MapFrom(src => src.EmployeeType))
-                .ForMember(dist => dist.Department, Options => Options.MapFrom(src => src.Department != null ? src.Department.Name : null));
+                .ForMember(dist => dist.Department, Options => Options.MapFrom(src => src.Department != null ? src.Department.Name : null))
+                .ForMember(dist => dist.Image, Options => Options.MapFrom(src => src.ImageName));
 
             CreateMap<Employee, EmployeeDetailsDto>()
                 .ForMember(dist => dist.Gender, Options => Options.MapFrom(src => src.Gender))
                 .ForMember(dist => dist.EmployeeType, Options => Options.MapFrom(src => src.EmployeeType))
                 .ForMember(dist => dist.HiringDate, Options => Options.MapFrom(src => DateOnly.FromDateTime(src.HiringDate)))
-                .ForMember(dist => dist.Department, Options => Options.MapFrom(src => src.Department != null ? src.Department.Name : null));
+                .ForMember(dist => dist.Department, Options => Options.MapFrom(src => src.Department != null ? src.Department.Name : null))
+                .ForMember(dist => dist.Image, Options => Options.MapFrom(src => src.ImageName));
 
             CreateMap<CreatedEmployeeDto, Employee>()
                 .ForMember(dist => dist.HiringDate, Options => Options.MapFrom(src => src.HiringDate.ToDateTime(TimeOnly.MinValue)));

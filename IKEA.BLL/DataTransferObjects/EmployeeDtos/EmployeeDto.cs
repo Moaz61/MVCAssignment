@@ -29,5 +29,6 @@ namespace IKEA.BLL.DataTransferObjects.EmployeeDtos
         public string EmpType { get; set; }
 
         public string? Department {  get; set; }
+        public string? Image { get; set; }
     }
 }

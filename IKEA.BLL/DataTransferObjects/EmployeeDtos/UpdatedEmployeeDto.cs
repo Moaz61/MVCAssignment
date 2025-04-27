@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IKEA.DAL.Models.EmployeeModel;
 using IKEA.DAL.Models.Shared.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace IKEA.BLL.DataTransferObjects.EmployeeDtos
 {
@@ -43,5 +44,6 @@ namespace IKEA.BLL.DataTransferObjects.EmployeeDtos
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
         public int? DepartmentId { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }
