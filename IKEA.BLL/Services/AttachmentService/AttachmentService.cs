@@ -9,7 +9,7 @@ namespace IKEA.BLL.Services.AttachmentService
 {
     public class AttachmentService : IAttachmentService
     {
-        List<string> allowedExtensions = [".png", ".jpg", ".Jpeg"];
+        List<string> allowedExtensions = [".png", ".jpg", ".jpeg"];
         const int maxSize = 2_097_152;
 
         public string? Upload(IFormFile file, string FolderName)
