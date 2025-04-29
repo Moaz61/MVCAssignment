@@ -1,4 +1,5 @@
-﻿using IKEA.DAL.Models.IdentityModel;
+﻿using System.Threading.Tasks;
+using IKEA.DAL.Models.IdentityModel;
 using IKEA.PL.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -74,6 +75,12 @@ namespace IKEA.PL.Controllers
         }
         #endregion
 
-        //Log Out
+        #region SignOut
+        public async Task<IActionResult> SignOut()
+        {
+           await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Login));
+        }
+        #endregion
     }
 }
