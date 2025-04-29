@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using IKEA.DAL.Models.IdentityModel;
+using IKEA.PL.Utilities;
 using IKEA.PL.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -80,6 +81,31 @@ namespace IKEA.PL.Controllers
         {
            await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(Login));
+        }
+        #endregion
+
+        #region Forget Password
+        [HttpGet]
+        public IActionResult ForgetPassword() => View();
+
+        [HttpPost]
+        public IActionResult SendResetPasswordLink(ForgetPasswordViewModel viewModel)
+        {
+            if(ModelState.IsValid)
+            {
+                var User = _userManager.FindByEmailAsync(viewModel.Email);
+                if (User is not null)
+                {
+                    var email = new Email()
+                    {
+                        To = viewModel.Email,
+                        Subject = "Reset Password",
+                        Body = "Reset Password Link"
+                    };
+                }
+            }
+            ModelState.AddModelError(string.Empty, "Invalid Operation");
+            return View(nameof(ForgetPassword), viewModel);
         }
         #endregion
     }
