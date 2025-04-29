@@ -3,8 +3,10 @@ using IKEA.BLL.Services.AttachmentService;
 using IKEA.BLL.Services.Classes;
 using IKEA.BLL.Services.Interfaces;
 using IKEA.DAL.Data.Contexts;
+using IKEA.DAL.Models.IdentityModel;
 using IKEA.DAL.Repositories.Classes;
 using IKEA.DAL.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +41,9 @@ namespace IKEA.PL
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                   .AddEntityFrameworkStores<ApplicationDBContext>();
             #endregion
 
             var app = builder.Build();
