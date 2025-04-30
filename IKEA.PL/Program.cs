@@ -43,7 +43,8 @@ namespace IKEA.PL
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                   .AddEntityFrameworkStores<ApplicationDBContext>();
+                   .AddEntityFrameworkStores<ApplicationDBContext>()
+                   .AddDefaultTokenProviders();
             #endregion
 
             var app = builder.Build();
