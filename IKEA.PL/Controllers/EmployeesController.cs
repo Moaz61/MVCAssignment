@@ -47,6 +47,7 @@ namespace IKEA.PL.Controllers
                         PhoneNumber = employeeViewModel.PhoneNumber,
                         HiringDate = employeeViewModel.HiringDate,
                         DepartmentId = employeeViewModel.DepartmentId,
+                        Image = employeeViewModel.Image,
                     };
                     int Result = _employeeService.CreateEmployee(employeeDto);
                     string Message;
@@ -127,7 +128,9 @@ namespace IKEA.PL.Controllers
                     Salary = employeeViewModel.Salary,
                     PhoneNumber= employeeViewModel.PhoneNumber,
                     DepartmentId = employeeViewModel.DepartmentId,
+                    Image = employeeViewModel.Image,
                 };
+
                 var result = _employeeService.UpdateEmployee(employeeDto);
                 if (result > 0)
                     return RedirectToAction(nameof(Index));
