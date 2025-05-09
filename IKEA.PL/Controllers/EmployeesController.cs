@@ -102,6 +102,7 @@ namespace IKEA.PL.Controllers
                 Gender = Enum.Parse<Gender>(employee.Gender),
                 EmployeeType = Enum.Parse<EmployeeType>(employee.EmployeeType),
                 DepartmentId = employee.DepartmentId,
+                ImageUrl=employee.Image
             };
             return View(employeeViewModel);
         }
